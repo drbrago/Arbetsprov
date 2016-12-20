@@ -4,6 +4,12 @@ var getDateString = function() {
     " " + date.getHours() + ":" + date.getMinutes();
 }
 
+var removeAllChildrenFromElement = function (node) {
+  while (node.hasChildNodes()) {
+    node.removeChild(node.lastChild);
+  }
+}
+
 var searchItemRemoveClickHandler = function (event) {
   var searchHistoryTable = document.getElementById("searchHistoryTable");
   searchHistoryTable.deleteRow(event.target.searchItem.rowIndex);
@@ -59,17 +65,58 @@ var performSearchAndAddToSearchHistory = function(searchTerm) {
   searchHistoryTable.appendChild(searchItem);
 }
 
-var onKeyUpHandler = function (event) {
-  if(event.key === "Enter") {
-    performSearchAndAddToSearchHistory(event.target.value);
-  } else {
-
+var parsePartialSearchTextAndAddToView = function (responseText) {
+  var json = JSON.parse(responseText);
+  var results = json.RestResponse.result;
+  var resultsToShow = Math.min(5, results.length);
+  var partialResultsElement = document.getElementById("partialResults");
+  removeAllChildrenFromElement(partialResultsElement);
+  for (var i = 0; i < resultsToShow; i++) {
+    var result = results[i];
+    var item = document.createElement("div");
+    item.innerText = result.name;
+    partialResultsElement.appendChild(item);
   }
-  console.log(event.target.value);
+}
+
+var clearPartialSearchResultsAndHideElement = function () {
+  var partialResultsElement = document.getElementById("partialResults");
+  removeAllChildrenFromElement(partialResultsElement);
+}
+
+var partialSearchResultsReadyHandler = function(event) {
+  if (this.readyState == 4 && this.status == 200) {
+    parsePartialSearchTextAndAddToView(this.responseText);
+  }
+}
+
+var performSearchAndDisplayPartialSearchResults = function(searchTerm) {
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://services.groupkt.com/country/search?text="+searchTerm;
+  xmlhttp.onreadystatechange = partialSearchResultsReadyHandler;
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
+var keyUpHandler = function (event) {
+  var value = event.target.value;
+
+  if (value.length == 0)
+    //No need to do anything if no text is supplied.
+  {
+    clearPartialSearchResultsAndHideElement();
+    return;
+  }
+
+  if(event.key === "Enter") {
+    performSearchAndAddToSearchHistory(value);
+  } else {
+    performSearchAndDisplayPartialSearchResults(value);
+  }
 }
 
 var setupTextInputHandlers = function(textInput) {
-  textInput.onkeyup = onKeyUpHandler;
+  textInput.onkeyup = keyUpHandler;
 };
 
 document.addEventListener("DOMContentLoaded", function() {
