@@ -9,6 +9,7 @@ var SearchField = (function () {
   }
 
   function clearPartialSearchResultsAndHideElement() {
+    removePartialResultsContainerHandlers();
     Utils.removeAllChildrenFromElement(partialResultsContainer);
   }
 
@@ -31,9 +32,13 @@ var SearchField = (function () {
       item.innerText = result.name;
       partialResultsContainer.appendChild(item);
     }
+
+    if(resultsToShow > 0) {
+      addPartialResultsContainerHandlers();
+    }
   }
 
-  var partialSearchResultsReadyHandler = function(event) {
+  function partialSearchResultsReadyHandler(event) {
     if (this.readyState == 4 && this.status == 200) {
       parsePartialSearchTextAndAddToView(this.responseText);
     }
@@ -41,6 +46,26 @@ var SearchField = (function () {
 
   var performSearchAndAddToSearchHistory = function(searchTerm) {
     SearchHistory.addSearchToHistory(searchTerm);
+  }
+
+  function setupTextInputHandlers() {
+    textInput.onkeyup = keyUpHandler;
+  }
+
+  function addPartialResultsContainerHandlers() {
+    document.addEventListener("click", clearPartialSearchResultsAndHideElement);
+    partialResultsContainer.addEventListener("click", partialResultsContainerClickHandler);
+  }
+
+  function removePartialResultsContainerHandlers() {
+    document.removeEventListener("click", clearPartialSearchResultsAndHideElement);
+    partialResultsContainer.removeEventListener("click", partialResultsContainerClickHandler);
+  }
+
+  function partialResultsContainerClickHandler(event) {
+    event.stopPropagation();
+    textInput.value = event.target.innerText;
+    clearPartialSearchResultsAndHideElement();
   }
 
   function keyUpHandler(event) {
@@ -57,10 +82,6 @@ var SearchField = (function () {
     } else {
       performSearchAndDisplayPartialSearchResults(value);
     }
-  }
-
-  function setupTextInputHandlers() {
-    textInput.onkeyup = keyUpHandler;
   }
 
   return {
