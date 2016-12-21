@@ -13,10 +13,6 @@ var utils = (function () {
   }
 })();
 
-var searchField = (function () {
-
-})();
-
 var searchItemRemoveClickHandler = function (event) {
   var searchHistoryTable = document.getElementById("searchHistoryTable");
   searchHistoryTable.deleteRow(event.target.searchItem.rowIndex);
@@ -88,7 +84,7 @@ var parsePartialSearchTextAndAddToView = function (responseText) {
 
 var clearPartialSearchResultsAndHideElement = function () {
   var partialResultsElement = document.getElementById("partialResults");
-  removeAllChildrenFromElement(partialResultsElement);
+  utils.removeAllChildrenFromElement(partialResultsElement);
 }
 
 var partialSearchResultsReadyHandler = function(event) {
