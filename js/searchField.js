@@ -65,6 +65,8 @@ var SearchField = (function () {
   function partialResultsContainerClickHandler(event) {
     event.stopPropagation();
     textInput.value = event.target.innerText;
+    textInput.focus();
+    // textInput.select();
     clearPartialSearchResultsAndHideElement();
   }
 
