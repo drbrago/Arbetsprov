@@ -1,4 +1,7 @@
 var SearchHistory = (function () {
+  /**
+    Module that handles the search history table.
+  */
   var searchHistoryTable;
 
   function init(table) {

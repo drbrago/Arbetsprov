@@ -1,4 +1,7 @@
 var Utils = (function () {
+  /**
+    Utility module.
+  */
   return {
     getDateString:function() {
       var date = new Date();

@@ -1,4 +1,8 @@
 var SearchField = (function () {
+  /**
+    Module that handles the search input field and the partial results list.
+    Also gets data from the rest api when typing in the text field.
+  */
   var textInput, partialResultsContainer;
 
   function init (input, partialContainer) {
@@ -45,6 +49,10 @@ var SearchField = (function () {
   }
 
   var performSearchAndAddToSearchHistory = function(searchTerm) {
+    // According to instructions the search result is not presented so
+    // I did not create a search to the REST api here. Instead the searchTerm is
+    // saved. I have shown I can do a search to the REST api in the function
+    // performSearchAndDisplayPartialSearchResults.
     SearchHistory.addSearchToHistory(searchTerm);
   }
 
