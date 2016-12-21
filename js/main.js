@@ -1,14 +1,21 @@
-var getDateString = function() {
-  var date = new Date();
-  return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() +
-    " " + date.getHours() + ":" + date.getMinutes();
-}
-
-var removeAllChildrenFromElement = function (node) {
-  while (node.hasChildNodes()) {
-    node.removeChild(node.lastChild);
+var utils = (function () {
+  return {
+    getDateString:function() {
+      var date = new Date();
+      return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() +
+        " " + date.getHours() + ":" + date.getMinutes();
+    },
+    removeAllChildrenFromElement:function (node) {
+      while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+      }
+    }
   }
-}
+})();
+
+var searchField = (function () {
+
+})();
 
 var searchItemRemoveClickHandler = function (event) {
   var searchHistoryTable = document.getElementById("searchHistoryTable");
@@ -41,7 +48,7 @@ var createSearchItem = function(searchTerm) {
   dateColumn.onclick = searchItemClickHandler;
 
   searchTermColumn.innerText = searchTerm;
-  dateColumn.innerText = getDateString();
+  dateColumn.innerText = utils.getDateString();
   removeButton.innerText = "x";
   removeButton.searchItem = tableRow;
 
@@ -70,7 +77,7 @@ var parsePartialSearchTextAndAddToView = function (responseText) {
   var results = json.RestResponse.result;
   var resultsToShow = Math.min(5, results.length);
   var partialResultsElement = document.getElementById("partialResults");
-  removeAllChildrenFromElement(partialResultsElement);
+  utils.removeAllChildrenFromElement(partialResultsElement);
   for (var i = 0; i < resultsToShow; i++) {
     var result = results[i];
     var item = document.createElement("div");
@@ -102,7 +109,6 @@ var keyUpHandler = function (event) {
   var value = event.target.value;
 
   if (value.length == 0)
-    //No need to do anything if no text is supplied.
   {
     clearPartialSearchResultsAndHideElement();
     return;
