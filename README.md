@@ -1,11 +1,3 @@
-
-
-
-
-Instructions
-* Install node.js https://nodejs.org/en/
-* To run the application execute
-
 # Work code sample
 
 A simple search application that uses the free country search REST api by http://www.groupkt.com/.
