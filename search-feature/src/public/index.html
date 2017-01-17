@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="styles/app.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="UI/assets/logo.svg" />
+    </header>
+
+    <div id="partial-results">
+    </div>
+    <section id="search-form">
+        <div>
+            <img src="UI/assets/search.svg" />
+            <div class="wrapper">
+                <input id="search-input" type="text" name="search" autocomplete="off" placeholder="Search for a country" />
+            </div>
+        </div>
+    </section>
+    <section>
+      <table id="search-history">
+      </table>
+    </section>
+    <script src="/scripts/require.js" data-main="/scripts/main.js"></script>
+</body>
+
+</html>
