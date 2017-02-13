@@ -1,0 +1,23 @@
+{
+  "name": "Arbetsprov-search-feature",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Erik Johansson"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/drbrago/Arbetsprov",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.2",
+    "stylus": "^0.54.5",
+    "bootstrap": "^3.3.7"
+  }
+}

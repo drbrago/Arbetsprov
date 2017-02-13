@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Needed for bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search for countries</title>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- App style sheet -->
+    <!-- build:css main.min.css -->
+    <link rel="stylesheet" href="path/to/normalize.css">
+    <link rel="stylesheet" href="path/to/main.css">
+    <!-- /build -->
+    <link rel="stylesheet" type="text/css" href="styles/app.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="UI/assets/logo.svg" />
+    </header>
+
+    <div id="partial-results">
+    </div>
+    <section id="search-form">
+        <div>
+            <img src="UI/assets/search.svg" />
+            <div class="wrapper">
+                <input id="search-input" type="text" name="search" autocomplete="off" placeholder="Search for a country" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <table id="search-history">
+        </table>
+    </section>
+    <!-- jQuery library -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Latest compiled Bootstrap JavaScript -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Angular libraries -->
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <!-- Application code -->
+    <!-- build:js arbetsprov-search-feature.min.js -->
+    <script src="src/scripts/app.js"></script>
+    <!-- /build -->
+</body>
+
+</html>
