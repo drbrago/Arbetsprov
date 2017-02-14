@@ -1,1 +1,1 @@
-var app = angular.module('app', ['ngResource', 'ui.bootstrap']);
+var app = angular.module('app', ['ui.bootstrap']);

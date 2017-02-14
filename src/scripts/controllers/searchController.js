@@ -1,14 +1,8 @@
-angular.module('app').controller('searchCtrl', function($scope, Countries) {
+angular.module('app').controller('searchCtrl', function($scope, countriesService) {
     $scope.searchText = '';
     $scope.partialSearchResult = [];
     $scope.searchHistory = [];
-    $scope.partialSearch = function() {
-        Countries.get({
-            text: $scope.searchText
-        }, function(data) {
-            $scope.partialSearchResult = data.RestResponse.result;
-        });
-    };
+    $scope.partialSearch = countriesService.getCountries;
     $scope.search = function() {
         var promise = Countries.get({
             text: $scope.searchText

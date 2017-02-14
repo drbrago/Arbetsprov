@@ -62,59 +62,61 @@
             <img src="assets/logo.svg" />
         </div>
         <div class="search-content" ng-controller="searchCtrl">
-            <div ng-hide="partialSearchResult.length == 0">
-                <ul>
-                    <li ng-repeat="country in partialSearchResult | limitTo:5">{{item.name}}</li>
-                </ul>
-            </div>
             <div class="paragraph row">
                 <div class="col-xs-1 text-right">
                     <img src="assets/search.svg" />
                 </div>
                 <div class="col-xs-10">
-                    <input id="search-input" ng-keyup="partialSearch()" ng-model="searchText" type="text" name="search" autocomplete="off" placeholder="Search for a country" uib-typeahead="country as country.name for country in partialSearchResult | filter:{name:$viewValue}"
-                        typeahead-popup-template-url="customPopupTemplate.html" />
+                    <input id="search-input" ng-model="asyncSelected" type="text" name="search" autocomplete="off" placeholder="Search for a country"
+                        class="form-control"
+                        uib-typeahead="country for country in partialSearch($viewValue)"
+                        typeahead-loading="loadingLocations"
+                        typeahead-no-results="noResults"
+                    />
+                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                    <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                    </div>
+                    <div class="col-xs-1">
+                    </div>
                 </div>
-                <div class="col-xs-1">
+                <div class="paragraph table-responsive" ng-hide="searchHistory.length == 0">
+                    <table class="table">
+                        <tr ng-repeat="item in searchHistory">
+                            <td>item.text</td>
+                            <td>item.date</td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <div class="paragraph table-responsive" ng-hide="searchHistory.length == 0">
-                <table class="table">
-                    <tr ng-repeat="item in searchHistory">
-                        <td>item.text</td>
-                        <td>item.date</td>
-                    </tr>
-                </table>
             </div>
         </div>
-    </div>
-    <!-- jQuery library -->
-    <!-- build:js bower_components/dist/jquery.min.js -->
-    <script src="bower_components/dist/jquery.js"></script>
-    <!-- /build -->
-    <!-- Latest compiled Bootstrap JavaScript -->
-    <!-- build:js bower_components/dist/js/bootstrap.js -->
-    <script src="bower_components/dist/js/bootstrap.js"></script>
-    <!-- /build -->
-    <!-- Angular libraries -->
-    <!-- build:js ower_components/angular.min.js -->
-    <script type="text/javascript" src="bower_components/angular.js"></script>
-    <!-- /build -->
-    <!-- build:js ower_components/angular-resource.min.js -->
-    <script type="text/javascript" src="bower_components/angular-resource.js"></script>
-    <!-- /build -->
-    <!-- build:js ower_components/ui-bootstrap.min.js -->
-    <script type="text/javascript" src="bower_components/ui-bootstrap.js"></script>
-    <!-- /build -->
-    <!-- build:js ower_components/ui-bootstrap-tpls.min.js -->
-    <script type="text/javascript" src="bower_components/ui-bootstrap-tpls.js"></script>
-    <!-- /build -->
-    <!-- Application code -->
-    <!-- build:js arbetsprov-search-feature.min.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/searchController.js"></script>
-    <script src="scripts/services/countriesService.js"></script>
-    <!-- /build -->
+        <!-- jQuery library -->
+        <!-- build:js bower_components/dist/jquery.min.js -->
+        <script src="bower_components/dist/jquery.js"></script>
+        <!-- /build -->
+        <!-- Latest compiled Bootstrap JavaScript -->
+        <!-- build:js bower_components/dist/js/bootstrap.js -->
+        <script src="bower_components/dist/js/bootstrap.js"></script>
+        <!-- /build -->
+        <!-- Angular libraries -->
+        <!-- build:js ower_components/angular.min.js -->
+        <script type="text/javascript" src="bower_components/angular.js"></script>
+        <!-- /build -->
+        <!-- build:js ower_components/angular-resource.min.js -->
+        <script type="text/javascript" src="bower_components/angular-resource.js"></script>
+        <!-- /build -->
+        <!-- build:js ower_components/ui-bootstrap.min.js -->
+        <script type="text/javascript" src="bower_components/ui-bootstrap.js"></script>
+        <!-- /build -->
+        <!-- build:js ower_components/ui-bootstrap-tpls.min.js -->
+        <script type="text/javascript" src="bower_components/ui-bootstrap-tpls.js"></script>
+        <!-- /build -->
+        <!-- Application code -->
+        <!-- build:js arbetsprov-search-feature.min.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/searchController.js"></script>
+        <script src="scripts/services/countriesService.js"></script>
+        <!-- /build -->
 </body>
 
 </html>

@@ -118,7 +118,8 @@ module.exports = function(grunt) {
                         'bootstrap': {
                             files: [
                                 "dist/js/bootstrap.js",
-                                "dist/css/bootstrap.css"
+                                "dist/css/bootstrap.css",
+                                "dist/fonts/**"
                             ]
                         },
                         'angular-bootstrap': {
