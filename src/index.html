@@ -7,41 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Search for countries</title>
     <!-- Latest compiled and minified Bootstrap CSS -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- build:css bower_components/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" href="bower_components/dist/css/bootstrap.css">
+    <!-- /build -->
     <!-- App style sheet -->
     <!-- build:css main.min.css -->
-    <link rel="stylesheet" href="path/to/normalize.css">
-    <link rel="stylesheet" href="path/to/main.css">
+    <link rel="stylesheet" href="styles/main.css">
     <!-- /build -->
-    <link rel="stylesheet" type="text/css" href="styles/app.css">
 </head>
 
 <body>
-
-    <header>
-        <img src="UI/assets/logo.svg" />
-    </header>
-
-    <div id="partial-results">
-    </div>
-    <section id="search-form">
-        <div>
-            <img src="UI/assets/search.svg" />
-            <div class="wrapper">
-                <input id="search-input" type="text" name="search" autocomplete="off" placeholder="Search for a country" />
+    <div class="container-fluid">
+        <div class="page-header">
+            <img src="UI/assets/logo.svg" />
+        </div>
+        <div ng-controller="searchCtrl">
+            <div ng-hide="partialSearchResult.length">
+                <ul>
+                    <li ng-repeat="item in partialSearchResult">item</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div id="search-form" class="col-*-12">
+                    <div class="row">
+                        <div class="col-*-1">
+                            <img src="UI/assets/search.svg" />
+                        </div>
+                        <div class="col-*-11">
+                            <input id="search-input" ng-keyup="partialSearch()" ng-model="searchText" type="text" name="search" autocomplete="off" placeholder="Search for a country" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" ng-hide="searchHistory.length">
+                <table class="table">
+                    <tr ng-repeat="item in searchHistory">
+                        <td>item.text</td>
+                        <td>item.date</td>
+                    </tr>
+                </table>
             </div>
         </div>
-    </section>
-    <section>
-        <table id="search-history">
-        </table>
-    </section>
+    </div>
     <!-- jQuery library -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/dist/jquery.min.js"></script>
     <!-- Latest compiled Bootstrap JavaScript -->
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- build:js bower_components/dist/js/bootstrap.js -->
+    <script src="bower_components/dist/js/bootstrap.js"></script>
+    <!-- /build -->
     <!-- Angular libraries -->
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <!-- build:js ower_components/angular.min.js -->
+    <script type="text/javascript" src="bower_components/angular.js"></script>
+    <!-- /build -->
     <!-- Application code -->
     <!-- build:js arbetsprov-search-feature.min.js -->
     <script src="src/scripts/app.js"></script>

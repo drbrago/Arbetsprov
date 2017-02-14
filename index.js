@@ -2,5 +2,5 @@
 var mach = require('mach');
 var path = require('path');
 var app = mach.stack();
-app.use(mach.file, path.join(__dirname, 'dist'));
+app.use(mach.file, path.join(__dirname, 'build'));
 mach.serve(app, 8080);

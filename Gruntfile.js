@@ -10,7 +10,7 @@ module.exports = function(grunt) {
             },
             dev: {
                 files: {
-                    'build/main.css': ['src/styles/*.styl'] // compile and concat into single file
+                    'build/styles/main.css': ['src/styles/*.styl'] // compile and concat into single file
                 }
             }
         },
@@ -30,6 +30,13 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                }
+            }
+        },
+        processhtml: {
+            dist: {
+                files: {
+                    'dist/index.html': ['src/index.html']
                 }
             }
         },
@@ -63,6 +70,47 @@ module.exports = function(grunt) {
             files: ['<%= jshint.files %>'],
             tasks: ['jshint', 'qunit']
         },
+        bower: {
+            release: {
+                dest: 'dist/bower_components',
+                options: {
+                    ignorePackages: ['stylus'],
+                    packageSpecific: {
+                        'bootstrap': {
+                            files: [
+                                "dist/js/bootstrap.min.js",
+                                "dist/css/bootstrap.min.css"
+                            ]
+                        },
+                        'jquery': {
+                            files: [
+                                "dist/jquery.min.js"
+                            ]
+                        },
+                        'angular': {
+                            files: [
+                                "angular.min.js"
+                            ]
+                        }
+                    }
+                }
+            },
+            dev: {
+                dest: 'build/bower_components',
+                options: {
+                    ignorePackages: ['stylus'],
+                    packageSpecific: {
+                        'bootstrap': {
+                            files: [
+                                "dist/js/bootstrap.js",
+                                "dist/css/bootstrap.css"
+                            ]
+                        }
+                    }
+
+                }
+            }
+        },
         copy: {
             release: {
                 files: [
@@ -81,16 +129,17 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: ['assets/*'],
-                        dest: 'public/',
+                        dest: 'build/',
                         filter: 'isFile'
                     },
-                    // copy assets
+                    // copy scripts
                     {
                         expand: true,
-                        src: ['src/scripts/*'],
-                        dest: 'public/scripts/',
+                        cwd: 'src',
+                        src: ['scripts/*', 'index.html'],
+                        dest: 'build/',
                         filter: 'isFile'
-                    },
+                    }
                 ],
             },
         },
@@ -108,12 +157,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-bower');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('test', ['jshint', 'qunit']);
 
-    grunt.registerTask('default', ['jshint', 'stylus:release', 'qunit', 'concat', 'uglify', 'cssmin', 'copy']);
-    grunt.registerTask('build', ['jshint', 'stylus:dev', 'qunit', 'copy:dev', 'clean:dev']);
+    grunt.registerTask('default', ['jshint', 'stylus:release', 'qunit', 'processhtml', 'concat', 'uglify', 'cssmin', 'bower:release',
+        'copy:release'
+    ]);
+    grunt.registerTask('build', ['clean:dev', 'jshint', 'stylus:dev', 'qunit', 'copy:dev', 'bower:dev']);
 
 };
