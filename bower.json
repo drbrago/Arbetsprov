@@ -18,6 +18,10 @@
   "dependencies": {
     "angular": "^1.6.2",
     "stylus": "^0.54.5",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "angular-resource": "^1.6.2"
+  },
+  "devDependencies": {
+    "angular-bootstrap": "^2.5.0"
   }
 }

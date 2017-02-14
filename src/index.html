@@ -17,29 +17,68 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="page-header">
-            <img src="UI/assets/logo.svg" />
+    <style>
+        .typeahead-demo .custom-popup-wrapper {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            background-color: #f9f9f9;
+        }
+
+        .typeahead-demo .custom-popup-wrapper>.message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
+
+        .typeahead-demo .custom-popup-wrapper>.dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            min-width: 160px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    </style>
+
+    <script type="text/ng-template" id="customPopupTemplate.html">
+        <div class="custom-popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;" ng-show="isOpen() && !moveInProgress" aria-hidden="{{!isOpen()}}">
+            <p class="message">select location from drop down.</p>
+
+            <ul class="dropdown-menu" role="listbox">
+                <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                    <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+                </li>
+            </ul>
         </div>
-        <div ng-controller="searchCtrl">
-            <div ng-hide="partialSearchResult.length">
+    </script>
+
+    <div class="container-fluid">
+        <div class="page-header text-center">
+            <img src="assets/logo.svg" />
+        </div>
+        <div class="search-content" ng-controller="searchCtrl">
+            <div ng-hide="partialSearchResult.length == 0">
                 <ul>
-                    <li ng-repeat="item in partialSearchResult">item</li>
+                    <li ng-repeat="country in partialSearchResult | limitTo:5">{{item.name}}</li>
                 </ul>
             </div>
-            <div class="row">
-                <div id="search-form" class="col-*-12">
-                    <div class="row">
-                        <div class="col-*-1">
-                            <img src="UI/assets/search.svg" />
-                        </div>
-                        <div class="col-*-11">
-                            <input id="search-input" ng-keyup="partialSearch()" ng-model="searchText" type="text" name="search" autocomplete="off" placeholder="Search for a country" />
-                        </div>
-                    </div>
+            <div class="paragraph row">
+                <div class="col-xs-1 text-right">
+                    <img src="assets/search.svg" />
+                </div>
+                <div class="col-xs-10">
+                    <input id="search-input" ng-keyup="partialSearch()" ng-model="searchText" type="text" name="search" autocomplete="off" placeholder="Search for a country" uib-typeahead="country as country.name for country in partialSearchResult | filter:{name:$viewValue}"
+                        typeahead-popup-template-url="customPopupTemplate.html" />
+                </div>
+                <div class="col-xs-1">
                 </div>
             </div>
-            <div class="table-responsive" ng-hide="searchHistory.length">
+            <div class="paragraph table-responsive" ng-hide="searchHistory.length == 0">
                 <table class="table">
                     <tr ng-repeat="item in searchHistory">
                         <td>item.text</td>
@@ -50,7 +89,9 @@
         </div>
     </div>
     <!-- jQuery library -->
-    <script src="bower_components/dist/jquery.min.js"></script>
+    <!-- build:js bower_components/dist/jquery.min.js -->
+    <script src="bower_components/dist/jquery.js"></script>
+    <!-- /build -->
     <!-- Latest compiled Bootstrap JavaScript -->
     <!-- build:js bower_components/dist/js/bootstrap.js -->
     <script src="bower_components/dist/js/bootstrap.js"></script>
@@ -59,9 +100,20 @@
     <!-- build:js ower_components/angular.min.js -->
     <script type="text/javascript" src="bower_components/angular.js"></script>
     <!-- /build -->
+    <!-- build:js ower_components/angular-resource.min.js -->
+    <script type="text/javascript" src="bower_components/angular-resource.js"></script>
+    <!-- /build -->
+    <!-- build:js ower_components/ui-bootstrap.min.js -->
+    <script type="text/javascript" src="bower_components/ui-bootstrap.js"></script>
+    <!-- /build -->
+    <!-- build:js ower_components/ui-bootstrap-tpls.min.js -->
+    <script type="text/javascript" src="bower_components/ui-bootstrap-tpls.js"></script>
+    <!-- /build -->
     <!-- Application code -->
     <!-- build:js arbetsprov-search-feature.min.js -->
-    <script src="src/scripts/app.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/searchController.js"></script>
+    <script src="scripts/services/countriesService.js"></script>
     <!-- /build -->
 </body>
 

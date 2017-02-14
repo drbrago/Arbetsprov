@@ -1,25 +1,23 @@
-angular.module('app').controller('searchCtrl', function($scope, countriesService) {
+angular.module('app').controller('searchCtrl', function($scope, Countries) {
     $scope.searchText = '';
     $scope.partialSearchResult = [];
     $scope.searchHistory = [];
     $scope.partialSearch = function() {
-        var promise = countriesService.searchForCountry($scope.searchText);
-        promise.then(function(data) {
-            $scope.partialSearchResult = data;
-        }, function(error) {
-            console.log(error);
+        Countries.get({
+            text: $scope.searchText
+        }, function(data) {
+            $scope.partialSearchResult = data.RestResponse.result;
         });
     };
     $scope.search = function() {
-        var promise = countriesService.searchForCountry($scope.searchText);
-        promise.then(function(data) {
+        var promise = Countries.get({
+            text: $scope.searchText
+        }, function(data) {
             $scope.searchResult = data;
             $scope.searchHistory.push({
                 text: $scope.searchText,
                 date: Date.now()
             });
-        }, function(error) {
-            console.log(error);
         });
     };
 });

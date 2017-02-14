@@ -67,8 +67,18 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['<%= jshint.files %>'],
-            tasks: ['jshint', 'qunit']
+            scripts: {
+                files: ['<%= jshint.files %>'],
+                tasks: ['build']
+            },
+            css: {
+                files: 'src/styles/**/*.styl',
+                tasks: ['build'],
+            },
+            html: {
+                files: ['src/**/*.html'],
+                tasks: ['build']
+            }
         },
         bower: {
             release: {
@@ -91,6 +101,11 @@ module.exports = function(grunt) {
                             files: [
                                 "angular.min.js"
                             ]
+                        },
+                        'angular-resource': {
+                            files: [
+                                "angular-resource.min.js"
+                            ]
                         }
                     }
                 }
@@ -104,6 +119,12 @@ module.exports = function(grunt) {
                             files: [
                                 "dist/js/bootstrap.js",
                                 "dist/css/bootstrap.css"
+                            ]
+                        },
+                        'angular-bootstrap': {
+                            files: [
+                                "ui-bootstrap.js",
+                                "ui-bootstrap-tpls.js"
                             ]
                         }
                     }
@@ -136,7 +157,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'src',
-                        src: ['scripts/*', 'index.html'],
+                        src: ['scripts/**', 'index.html'],
                         dest: 'build/',
                         filter: 'isFile'
                     }
@@ -157,6 +178,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-copy');
