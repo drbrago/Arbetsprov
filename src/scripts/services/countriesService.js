@@ -12,6 +12,13 @@ angular.module('app').factory('countriesService', function($http) {
                     return item.name;
                 });
             });
+        },
+        getCountry: function(searchText) {
+            return $http.get(countryURL, {
+                params: {
+                    text: searchText
+                }
+            });
         }
     };
 });
