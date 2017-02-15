@@ -10,26 +10,45 @@ These instructions will get you a copy of the project up and running on your loc
 
 Install node.js https://nodejs.org/en/.
 
+Install the package manager bower:
+```
+npm install -g bower
+```
+
+Install the grunt terminal client:
+```
+npm install -g grunt-cli
+```
+
 ### Installing
 
 Clone the code to your local drive and use npm to install dependencies.
 
 ```
-npm Install
+npm install
+bower install
 ```
-
-To start a simple webserver that will serve the application run:
-
-```
-node search-feature\src\index.js
-```
-
-Then browse to http://localhost:8080/index.html.
 
 ## Build
 
-To build the web application run:
+To build a distribution of the web application run:
+```
+grunt
+```
+To build a development version of the web application run:
+```
+grunt build
+```
 
+## Run
+
+To start a simple webserver that will serve the application run:
 ```
- node_modules/.bin/r.js -o search-feature/rjs-config.js
+node index.js
 ```
+Or if you wish to run the development version:
+```
+node index.js dev
+```
+
+Then browse to http://localhost:8080/index.html.
