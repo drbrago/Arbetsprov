@@ -1,4 +1,4 @@
-angular.module('app').controller('searchCtrl', function($scope, countriesService) {
+angular.module('app').controller('searchCtrl', ['$scope', 'countriesService', function($scope, countriesService) {
     $scope.searchText = '';
     $scope.partialSearchResult = [];
     $scope.searchHistory = [];
@@ -20,4 +20,4 @@ angular.module('app').controller('searchCtrl', function($scope, countriesService
             $scope.searchHistory.splice(index, 1);
         }
     };
-});
+}]);

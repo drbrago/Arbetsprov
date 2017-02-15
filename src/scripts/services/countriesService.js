@@ -1,4 +1,4 @@
-angular.module('app').factory('countriesService', function($http) {
+angular.module('app').factory('countriesService', ['$http', function($http) {
     var countryURL = "http://services.groupkt.com/country/search";
 
     return {
@@ -21,4 +21,4 @@ angular.module('app').factory('countriesService', function($http) {
             });
         }
     };
-});
+}]);

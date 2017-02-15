@@ -89,7 +89,8 @@ module.exports = function(grunt) {
                         'bootstrap': {
                             files: [
                                 "dist/js/bootstrap.min.js",
-                                "dist/css/bootstrap.min.css"
+                                "dist/css/bootstrap.min.css",
+                                "dist/fonts/**"
                             ]
                         },
                         'jquery': {
@@ -105,6 +106,12 @@ module.exports = function(grunt) {
                         'angular-resource': {
                             files: [
                                 "angular-resource.min.js"
+                            ]
+                        },
+                        'angular-bootstrap': {
+                            files: [
+                                "ui-bootstrap.min.js",
+                                "ui-bootstrap-tpls.min.js"
                             ]
                         }
                     }
@@ -167,7 +174,8 @@ module.exports = function(grunt) {
         },
         clean: {
             release: ['dist/*'],
-            dev: ['build/*']
+            dev: ['build/*'],
+            css: ['dist/main.css']
         }
     });
 
@@ -186,7 +194,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', ['jshint', 'qunit']);
 
-    grunt.registerTask('default', ['jshint', 'stylus:release', 'qunit', 'processhtml', 'concat', 'uglify', 'cssmin', 'bower:release',
+    grunt.registerTask('default', ['jshint', 'qunit', 'clean:release', 'stylus:release', 'processhtml', 'concat', 'uglify', 'cssmin', 'clean:css', 'bower:release',
         'copy:release'
     ]);
     grunt.registerTask('build', ['clean:dev', 'jshint', 'stylus:dev', 'qunit', 'copy:dev', 'bower:dev']);
