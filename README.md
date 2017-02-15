@@ -22,7 +22,7 @@ npm install -g grunt-cli
 
 ### Installing
 
-Clone the code to your local drive and use npm to install dependencies.
+Clone the code to your local drive and use npm and bower to install dependencies.
 
 ```
 npm install
