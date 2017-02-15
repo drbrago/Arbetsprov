@@ -5,6 +5,10 @@ body
   input
     color black
 
+  .vertical-middle
+    display inline-block
+    vertical-align middle
+
   .search-content
     padding 20px 15px
 
@@ -16,6 +20,7 @@ body
       border none
       border-radius 10px
       background-color #FFFFFF
+      display: none
 
   .paragraph
     margin-bottom 20px
@@ -24,7 +29,11 @@ body
     border none
 
   .table-hover tbody tr:hover td
-      background-color #38577D
+    background-color #38577D
+
+  .table-hover tr:hover button
+    display inline
 
   .table-hover tbody tr:hover td:last-child
       background-color #793952
+      width: 30px

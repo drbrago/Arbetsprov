@@ -1,16 +1,7 @@
 angular.module('app').controller('searchCtrl', function($scope, countriesService) {
     $scope.searchText = '';
     $scope.partialSearchResult = [];
-    $scope.searchHistory = [{
-        text: "Alabama",
-        date: Date.now()
-    }, {
-        text: "Alabama",
-        date: Date.now()
-    }, {
-        text: "Alabama",
-        date: Date.now()
-    }];
+    $scope.searchHistory = [];
     $scope.partialSearch = countriesService.getCountries;
     $scope.search = function(searchText) {
         countriesService.getCountry(searchText).then(function(response) {
@@ -22,5 +13,11 @@ angular.module('app').controller('searchCtrl', function($scope, countriesService
                 });
             }
         });
+    };
+    $scope.removeSearchHistoryItem = function(item) {
+        var index = $scope.searchHistory.indexOf(item);
+        if (index > -1) {
+            $scope.searchHistory.splice(index, 1);
+        }
     };
 });
